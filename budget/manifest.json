@@ -4,8 +4,8 @@
   "description": "家庭记账本 - 记一笔、月度概览、流水明细、预算管理",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#FFF5F8",
-  "theme_color": "#E84A8A",
+  "background_color": "#F0F6FF",
+  "theme_color": "#4A90D9",
   "orientation": "portrait-primary",
   "icons": [
     {
