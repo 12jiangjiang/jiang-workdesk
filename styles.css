@@ -393,6 +393,132 @@ textarea:focus {
   box-shadow: 0 0 0 3px var(--primary-light);
 }
 
+/* 热点数据区 */
+.hot-data {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+}
+
+.hot-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.hot-tab {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 999px;
+  background: var(--primary-light);
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hot-tab.active {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.hot-meta {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.hot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.hot-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s;
+}
+
+.hot-item:active {
+  background: var(--primary-light);
+}
+
+.hot-rank {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hot-item:nth-child(1) .hot-rank {
+  background: var(--primary);
+  color: #fff;
+}
+
+.hot-item:nth-child(2) .hot-rank {
+  background: #F5A0C2;
+  color: #fff;
+}
+
+.hot-item:nth-child(3) .hot-rank {
+  background: #F8B8D0;
+  color: var(--text);
+}
+
+.hot-title {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.hot-value {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.hot-loading,
+.hot-empty {
+  text-align: center;
+  padding: 24px 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.view-sub-header {
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.view-sub-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
 /* 提示 */
 .toast {
   position: fixed;
