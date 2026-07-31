@@ -135,49 +135,39 @@ def fetch_zhihu():
 
 
 def fetch_douyin():
-    """抖音热榜 - 尝试多个 API"""
-    apis = [
-        ('https://api-hot.imsyy.top/douyin', 'imsyy'),
-        ('https://api.vvhan.com/api/hotlist/douyin', 'vvhan'),
-    ]
-    for url, name in apis:
-        print(f'  Fetching 抖音热榜 from {name}...')
-        data = fetch_json(url)
-        if data:
-            raw_items = data.get('data', []) if isinstance(data, dict) else []
-            items = []
-            for item in raw_items[:15]:
-                title = item.get('title', '')
-                hot = item.get('hot', '')
-                link = item.get('url', '')
-                if title:
-                    items.append({'title': title, 'hot': str(hot) if hot else '', 'url': link})
-            if items:
-                return items
-    return []
+    """抖音热榜 - 使用 uapis.cn 聚合 API"""
+    url = 'https://uapis.cn/api/v1/misc/hotboard?type=douyin'
+    print('  Fetching 抖音热榜 from uapis.cn...')
+    data = fetch_json(url)
+    if not data:
+        return []
+    raw_items = data.get('list', [])
+    items = []
+    for item in raw_items[:15]:
+        title = item.get('title', '')
+        hot = item.get('hot_value', '')
+        link = item.get('url', '')
+        if title:
+            items.append({'title': title, 'hot': str(hot) if hot else '', 'url': link})
+    return items
 
 
 def fetch_xiaohongshu():
-    """小红书热榜"""
-    apis = [
-        ('https://api-hot.imsyy.top/xiaohongshu', 'imsyy'),
-        ('https://api.vvhan.com/api/hotlist/xhs', 'vvhan'),
-    ]
-    for url, name in apis:
-        print(f'  Fetching 小红书热榜 from {name}...')
-        data = fetch_json(url)
-        if data:
-            raw_items = data.get('data', []) if isinstance(data, dict) else []
-            items = []
-            for item in raw_items[:15]:
-                title = item.get('title', '')
-                hot = item.get('hot', '')
-                link = item.get('url', '')
-                if title:
-                    items.append({'title': title, 'hot': str(hot) if hot else '', 'url': link})
-            if items:
-                return items
-    return []
+    """小红书热榜 - 使用 uapis.cn 聚合 API"""
+    url = 'https://uapis.cn/api/v1/misc/hotboard?type=xiaohongshu'
+    print('  Fetching 小红书热榜 from uapis.cn...')
+    data = fetch_json(url)
+    if not data:
+        return []
+    raw_items = data.get('list', [])
+    items = []
+    for item in raw_items[:15]:
+        title = item.get('title', '')
+        hot = item.get('hot_value', '')
+        link = item.get('url', '')
+        if title:
+            items.append({'title': title, 'hot': str(hot) if hot else '', 'url': link})
+    return items
 
 
 def main():
