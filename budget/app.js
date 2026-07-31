@@ -103,6 +103,8 @@
     categoryGrid: document.getElementById('categoryGrid'),
     amountInput: document.getElementById('amountInput'),
     noteInput: document.getElementById('noteInput'),
+    dateInput: document.getElementById('dateInput'),
+    dateTodayBtn: document.getElementById('dateTodayBtn'),
     submitBtn: document.getElementById('submitBtn'),
     totalIncome: document.getElementById('totalIncome'),
     totalExpense: document.getElementById('totalExpense'),
@@ -120,6 +122,11 @@
     addBudgetForm: document.getElementById('addBudgetForm'),
     budgetCategorySelect: document.getElementById('budgetCategorySelect'),
     budgetAmountInput: document.getElementById('budgetAmountInput'),
+    monthlyTotalIncome: document.getElementById('monthlyTotalIncome'),
+    monthlyTotalExpense: document.getElementById('monthlyTotalExpense'),
+    monthlyTotalBalance: document.getElementById('monthlyTotalBalance'),
+    monthlyChart: document.getElementById('monthlyChart'),
+    monthlyList: document.getElementById('monthlyList'),
     installModal: document.getElementById('installModal'),
     closeInstallModal: document.getElementById('closeInstallModal'),
     toast: document.getElementById('toast')
@@ -128,12 +135,14 @@
   function init() {
     els.date.textContent = formatDate();
     els.monthDisplay.textContent = formatMonth(viewMonth);
+    els.dateInput.value = getTodayKey();
     bindNav();
     bindTypeToggle();
     bindSubmit();
     bindMonthNav();
     bindFilter();
     bindBudgetForm();
+    bindDateInput();
     bindInstall();
     registerServiceWorker();
     renderCategories();
@@ -154,6 +163,7 @@
         if (view === 'overview') renderOverview();
         if (view === 'detail') renderDetail();
         if (view === 'budget') renderBudget();
+        if (view === 'monthly') renderMonthly();
       });
     });
   }
@@ -210,8 +220,8 @@
         category: selectedCategory,
         amount: Math.round(amount * 100) / 100,
         note: els.noteInput.value.trim(),
-        date: getTodayKey(),
-        month: getMonthKey(new Date()),
+        date: els.dateInput.value || getTodayKey(),
+        month: (els.dateInput.value || getTodayKey()).slice(0, 7),
         createdAt: Date.now()
       };
       state.transactions.unshift(tx);
@@ -219,6 +229,7 @@
       // 清空表单
       els.amountInput.value = '';
       els.noteInput.value = '';
+      els.dateInput.value = getTodayKey();
       selectedCategory = null;
       renderCategories();
       showToast('记下来了 ✓');
@@ -367,8 +378,18 @@
 
       const header = document.createElement('div');
       header.className = 'tx-date-header';
-      const [yy, mm, dd] = date.split('-');
-      header.textContent = `${mm}月${dd}日`;
+      const [yy, mm, dd] = date.split('-').map(Number);
+      const d = new Date(yy, mm - 1, dd);
+      const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+      const todayKey = getTodayKey();
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+      let label;
+      if (date === todayKey) label = '今天';
+      else if (date === yKey) label = '昨天';
+      else label = `${mm}月${dd}日`;
+      header.textContent = `${label} · ${weekdays[d.getDay()]}`;
       group.appendChild(header);
 
       groups[date].forEach(tx => {
@@ -484,6 +505,100 @@
       els.budgetAmountInput.value = '';
       renderBudget();
       showToast('预算已设置 ✓');
+    });
+  }
+
+  // 日期选择器
+  function bindDateInput() {
+    els.dateTodayBtn.addEventListener('click', () => {
+      els.dateInput.value = getTodayKey();
+    });
+  }
+
+  // 月统计
+  function getRecent6Months() {
+    const months = [];
+    const now = new Date();
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      months.push(getMonthKey(d));
+    }
+    return months;
+  }
+
+  function getMonthStats(mk) {
+    const txs = state.transactions.filter(t => t.month === mk);
+    let income = 0, expense = 0;
+    txs.forEach(t => {
+      if (t.type === 'income') income += t.amount;
+      else expense += t.amount;
+    });
+    return { income, expense, balance: income - expense, count: txs.length };
+  }
+
+  function renderMonthly() {
+    const months = getRecent6Months();
+    const allStats = months.map(mk => ({ mk, ...getMonthStats(mk) }));
+
+    // 汇总
+    const totalIncome = allStats.reduce((s, m) => s + m.income, 0);
+    const totalExpense = allStats.reduce((s, m) => s + m.expense, 0);
+    els.monthlyTotalIncome.textContent = formatMoney(totalIncome);
+    els.monthlyTotalExpense.textContent = formatMoney(totalExpense);
+    els.monthlyTotalBalance.textContent = formatMoney(totalIncome - totalExpense);
+
+    // 柱状图
+    const maxVal = Math.max(...allStats.map(m => Math.max(m.income, m.expense)), 1);
+    els.monthlyChart.innerHTML = '';
+    allStats.forEach(m => {
+      const [, mon] = m.mk.split('-');
+      const incomeH = Math.max((m.income / maxVal) * 100, m.income > 0 ? 4 : 0);
+      const expenseH = Math.max((m.expense / maxVal) * 100, m.expense > 0 ? 4 : 0);
+      const col = document.createElement('div');
+      col.className = 'monthly-bar-wrap';
+      col.innerHTML = `
+        <div class="monthly-bars">
+          <div class="monthly-bar income" style="height: ${incomeH}%;" title="收入 ${formatMoney(m.income)}"></div>
+          <div class="monthly-bar expense" style="height: ${expenseH}%;" title="支出 ${formatMoney(m.expense)}"></div>
+        </div>
+        <span class="monthly-bar-label">${parseInt(mon)}月</span>`;
+      els.monthlyChart.appendChild(col);
+    });
+
+    // 月度明细列表（倒序）
+    const reversed = [...allStats].reverse();
+    els.monthlyList.innerHTML = '';
+    reversed.forEach(m => {
+      const [, mon] = m.mk.split('-');
+      const [y, mm] = m.mk.split('-');
+      const div = document.createElement('div');
+      div.className = 'monthly-item';
+      const rate = m.income > 0 ? Math.round((m.expense / m.income) * 100) : 0;
+      const rateLabel = rate > 100 ? '<span class="monthly-rate over">超支</span>' : `<span class="monthly-rate">${rate}%</span>`;
+      div.innerHTML = `
+        <div class="monthly-item-header">
+          <span class="monthly-item-month">${y}年${parseInt(mm)}月</span>
+          ${rateLabel}
+        </div>
+        <div class="monthly-item-stats">
+          <div class="monthly-stat">
+            <span class="monthly-stat-label">收入</span>
+            <span class="monthly-stat-value income">${formatMoney(m.income)}</span>
+          </div>
+          <div class="monthly-stat">
+            <span class="monthly-stat-label">支出</span>
+            <span class="monthly-stat-value expense">${formatMoney(m.expense)}</span>
+          </div>
+          <div class="monthly-stat">
+            <span class="monthly-stat-label">结余</span>
+            <span class="monthly-stat-value balance">${formatMoney(m.balance)}</span>
+          </div>
+          <div class="monthly-stat">
+            <span class="monthly-stat-label">笔数</span>
+            <span class="monthly-stat-value">${m.count}</span>
+          </div>
+        </div>`;
+      els.monthlyList.appendChild(div);
     });
   }
 
