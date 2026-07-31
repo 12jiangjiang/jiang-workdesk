@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fitness-app-v3';
+const CACHE_NAME = 'fitness-app-v4';
 const ASSETS = [
   './',
   './index.html',
@@ -24,13 +24,12 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  // 网络优先：每次先请求最新，失败才用缓存
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      return cached || fetch(e.request).then(resp => {
-        const copy = resp.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(e.request, copy));
-        return resp;
-      }).catch(() => cached);
-    })
+    fetch(e.request).then(resp => {
+      const copy = resp.clone();
+      caches.open(CACHE_NAME).then(cache => cache.put(e.request, copy));
+      return resp;
+    }).catch(() => caches.match(e.request))
   );
 });
