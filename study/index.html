@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="学习追踪">
+  <meta name="theme-color" content="#00A870">
+  <meta name="description" content="云南四年级小学生学习进度追踪 - 今日学习、学习统计、试卷记录、错题本">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="../icon-192.png">
+  <link rel="icon" type="image/png" href="../icon-192.png">
+  <title>学习追踪</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>学习</h1>
+        <p>追踪本</p>
+      </div>
+      <nav class="nav" aria-label="主导航">
+        <button class="nav-item active" data-view="today" aria-pressed="true">
+          <span class="nav-icon" aria-hidden="true">📖</span>
+          <span class="nav-label">今日学习</span>
+        </button>
+        <button class="nav-item" data-view="stats" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">📊</span>
+          <span class="nav-label">学习统计</span>
+        </button>
+        <button class="nav-item" data-view="papers" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">📝</span>
+          <span class="nav-label">试卷记录</span>
+        </button>
+        <button class="nav-item" data-view="mistakes" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">❌</span>
+          <span class="nav-label">错题本</span>
+        </button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="date" id="dateDisplay"></div>
+        <div class="streak-badge" id="streakBadge" style="display:none;">🔥 连续 <span id="streakDays">0</span> 天</div>
+      </header>
+
+      <!-- 今日学习 -->
+      <section class="view active" id="todayView">
+        <div class="view-header">
+          <h2>今日学习</h2>
+          <p class="subtitle">每天进步一点点</p>
+        </div>
+
+        <div class="progress-overview" id="progressOverview">
+          <div class="progress-circle-wrap">
+            <svg class="progress-ring" width="80" height="80">
+              <circle class="progress-ring-bg" cx="40" cy="40" r="34" stroke-width="6" fill="none"/>
+              <circle class="progress-ring-fill" id="todayProgressRing" cx="40" cy="40" r="34" stroke-width="6" fill="none"/>
+            </svg>
+            <span class="progress-text" id="todayProgressText">0%</span>
+          </div>
+          <div class="progress-info">
+            <span class="progress-label">完成 <span id="doneCount">0</span> / <span id="totalCount">0</span> 项任务</span>
+            <span class="progress-hint" id="progressHint">加油完成今天的任务吧！</span>
+          </div>
+        </div>
+
+        <div class="task-section">
+          <h3 class="section-title">📚 今日任务</h3>
+          <div class="task-list" id="taskList"></div>
+        </div>
+
+        <div class="task-section">
+          <h3 class="section-title">➕ 添加任务</h3>
+          <form class="add-task-form" id="addTaskForm">
+            <select id="taskSubjectSelect" class="task-select">
+              <option value="语文">📕 语文</option>
+              <option value="数学"> 数学</option>
+              <option value="英语">📗 英语</option>
+              <option value="科学">🔬 科学</option>
+              <option value="道法">🌟 道德与法治</option>
+              <option value="其他">📌 其他</option>
+            </select>
+            <input type="text" id="taskTextInput" placeholder="任务内容" maxlength="50" autocomplete="off">
+            <button type="submit">添加</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- 学习统计 -->
+      <section class="view" id="statsView">
+        <div class="view-header">
+          <h2>学习统计</h2>
+          <p class="subtitle">坚持就是胜利</p>
+        </div>
+
+        <div class="stat-cards">
+          <div class="stat-card">
+            <span class="stat-icon">📅</span>
+            <span class="stat-value" id="totalDays">0</span>
+            <span class="stat-label">总学习天数</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🔥</span>
+            <span class="stat-value" id="streakCount">0</span>
+            <span class="stat-label">连续天数</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">✅</span>
+            <span class="stat-value" id="totalDone">0</span>
+            <span class="stat-label">完成任务数</span>
+          </div>
+        </div>
+
+        <div class="view-sub-header">
+          <h3>📈 近7天完成率</h3>
+        </div>
+        <div class="weekly-chart" id="weeklyChart"></div>
+
+        <div class="view-sub-header">
+          <h3>📊 各科完成情况</h3>
+        </div>
+        <div class="subject-stats" id="subjectStats">
+          <div class="empty-state">暂无数据，开始学习吧 🌱</div>
+        </div>
+      </section>
+
+      <!-- 试卷记录 -->
+      <section class="view" id="papersView">
+        <div class="view-header">
+          <h2>试卷记录</h2>
+          <p class="subtitle">记录每次考试，追踪进步</p>
+        </div>
+
+        <div class="stat-cards">
+          <div class="stat-card">
+            <span class="stat-icon">📝</span>
+            <span class="stat-value" id="paperCount">0</span>
+            <span class="stat-label">试卷总数</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🎯</span>
+            <span class="stat-value" id="paperAvg">--</span>
+            <span class="stat-label">平均分</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🏆</span>
+            <span class="stat-value" id="paperBest">--</span>
+            <span class="stat-label">最高分</span>
+          </div>
+        </div>
+
+        <div class="view-sub-header">
+          <h3>📊 成绩趋势</h3>
+        </div>
+        <div class="score-chart" id="scoreChart"></div>
+
+        <div class="view-sub-header">
+          <h3>➕ 记录试卷</h3>
+        </div>
+        <form class="add-paper-form" id="addPaperForm">
+          <div class="paper-form-row">
+            <select id="paperSubject" class="paper-select">
+              <option value="语文">📕 语文</option>
+              <option value="数学"> 数学</option>
+              <option value="英语">📗 英语</option>
+              <option value="科学">🔬 科学</option>
+              <option value="道法">🌟 道德与法治</option>
+            </select>
+            <input type="text" id="paperName" placeholder="试卷名称（如：第一单元测试）" maxlength="30" autocomplete="off">
+          </div>
+          <div class="paper-form-row">
+            <input type="number" id="paperScore" placeholder="得分" step="0.5" min="0" inputmode="decimal">
+            <input type="number" id="paperTotal" placeholder="总分" step="0.5" min="0" value="100" inputmode="decimal">
+            <input type="date" id="paperDate">
+          </div>
+          <input type="text" id="paperNotes" placeholder="备注（错在哪、哪里需要加强）" maxlength="100" autocomplete="off" class="paper-notes-input">
+          <button type="submit" class="paper-submit-btn">✓ 记录</button>
+        </form>
+
+        <div class="view-sub-header">
+          <h3>📋 试卷列表</h3>
+        </div>
+        <div class="filter-tabs" id="paperFilterTabs">
+          <button class="filter-tab active" data-filter="all">全部</button>
+          <button class="filter-tab" data-filter="语文">语文</button>
+          <button class="filter-tab" data-filter="数学">数学</button>
+          <button class="filter-tab" data-filter="英语">英语</button>
+          <button class="filter-tab" data-filter="科学">科学</button>
+          <button class="filter-tab" data-filter="道法">道法</button>
+        </div>
+        <div class="paper-list" id="paperList">
+          <div class="empty-state">还没有试卷记录 📝</div>
+        </div>
+      </section>
+
+      <!-- 错题本 -->
+      <section class="view" id="mistakesView">
+        <div class="view-header">
+          <h2>错题本</h2>
+          <p class="subtitle">错过的不再错，就是进步</p>
+        </div>
+
+        <div class="view-sub-header">
+          <h3>➕ 添加错题</h3>
+        </div>
+        <form class="add-mistake-form" id="addMistakeForm">
+          <div class="mistake-form-row">
+            <select id="mistakeSubject" class="mistake-select">
+              <option value="语文">📕 语文</option>
+              <option value="数学"> 数学</option>
+              <option value="英语">📗 英语</option>
+              <option value="科学">🔬 科学</option>
+              <option value="道法">🌟 道德与法治</option>
+            </select>
+            <input type="text" id="mistakeType" placeholder="题型（如：选择题、计算题）" maxlength="20" autocomplete="off">
+          </div>
+          <textarea id="mistakeQuestion" placeholder="题目内容" maxlength="300" rows="2"></textarea>
+          <textarea id="mistakeAnswer" placeholder="正确答案 / 解题思路" maxlength="300" rows="2"></textarea>
+          <input type="text" id="mistakeReason" placeholder="错因（如：粗心、概念不清）" maxlength="50" autocomplete="off">
+          <button type="submit" class="mistake-submit-btn">✓ 收录</button>
+        </form>
+
+        <div class="view-sub-header">
+          <h3>📋 错题列表</h3>
+        </div>
+        <div class="filter-tabs" id="mistakeFilterTabs">
+          <button class="filter-tab active" data-filter="all">全部</button>
+          <button class="filter-tab" data-filter="语文">语文</button>
+          <button class="filter-tab" data-filter="数学">数学</button>
+          <button class="filter-tab" data-filter="英语">英语</button>
+          <button class="filter-tab" data-filter="科学">科学</button>
+          <button class="filter-tab" data-filter="道法">道法</button>
+        </div>
+        <div class="mistake-list" id="mistakeList">
+          <div class="empty-state">还没有错题记录 ❌</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="modal" id="installModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <h3>保存到苹果手机桌面</h3>
+      <ol>
+        <li>点击 Safari 底部或顶部的<strong>分享按钮</strong>（⬆️ 方框带箭头）</li>
+        <li>在菜单里找到<strong>"添加到主屏幕"</strong></li>
+        <li>点击右上角<strong>"添加"</strong></li>
+      </ol>
+      <p>之后就可以像 App 一样从桌面直接打开，离线也能用。</p>
+      <button class="modal-close" id="closeInstallModal">知道了</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
