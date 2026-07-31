@@ -11,12 +11,22 @@ const HABIT_LABELS = { exercise: '完成运动', diet: '饮食健康', nosnack: 
 const MEAL_TYPES = { breakfast: '🌅 早餐', lunch: '☀️ 午餐', dinner: '🌙 晚餐', snack: '🍵 加餐' };
 const EX_TYPES = { '跑步': '🏃', '快走': '🚶', '瑜伽': '🧘', '骑行': '🚴', '力量训练': '💪', '游泳': '🏊', '普拉提': '🤸', '跳绳': '🪢', '其他': '🎯' };
 
+const DEFAULT_TRAINING = [
+  { id: 'dt1', name: '晨跑/快走', detail: '30分钟', icon: '🏃' },
+  { id: 'dt2', name: '深蹲', detail: '3组×20个', icon: '🦵' },
+  { id: 'dt3', name: '平板支撑', detail: '3组×60秒', icon: '🏋️' },
+  { id: 'dt4', name: '仰卧起坐', detail: '3组×20个', icon: '💪' },
+  { id: 'dt5', name: '开合跳', detail: '3组×30个', icon: '⭐' },
+  { id: 'dt6', name: '拉伸放松', detail: '15分钟', icon: '🧘' },
+];
+
 let state = {
   profile: { height: null, startWeight: null, goalWeight: null, startDate: null },
   weights: [],
   checkins: {},
   meals: [],
   exercises: [],
+  customTraining: [],
 };
 
 let currentView = 'checkin';
@@ -56,7 +66,10 @@ function showToast(msg) {
 
 function getCheckin(dateStr) {
   if (!state.checkins[dateStr]) {
-    state.checkins[dateStr] = { water: 0, exercise: false, diet: false, nosnack: false, sleep: false };
+    state.checkins[dateStr] = { water: 0, exercise: false, diet: false, nosnack: false, sleep: false, trainingDone: {} };
+  }
+  if (!state.checkins[dateStr].trainingDone) {
+    state.checkins[dateStr].trainingDone = {};
   }
   return state.checkins[dateStr];
 }
@@ -73,6 +86,7 @@ function loadData() {
       state.checkins = d.checkins || {};
       state.meals = d.meals || [];
       state.exercises = d.exercises || [];
+      state.customTraining = d.customTraining || [];
     } catch(e) { console.error('load error', e); }
   }
   // 自动设置起始体重
@@ -122,6 +136,9 @@ function renderCheckin() {
     if (checkin[h]) el.classList.add('done');
     else el.classList.remove('done');
   });
+
+  // 训练计划
+  renderTraining();
 
   // 进度
   updateCheckinProgress(checkin, todayWeight);
@@ -212,6 +229,86 @@ function saveWeight() {
   renderCheckin();
   input.value = '';
   showToast('体重已记录');
+}
+
+/* ==================== 每日训练 ==================== */
+
+function getAllTraining() {
+  return [...DEFAULT_TRAINING, ...state.customTraining];
+}
+
+function renderTraining() {
+  const checkin = getCheckin(todayStr());
+  const allTasks = getAllTraining();
+  const doneCount = allTasks.filter(t => checkin.trainingDone[t.id]).length;
+
+  document.getElementById('trainingCount').textContent = `${doneCount} / ${allTasks.length} 完成`;
+
+  const list = document.getElementById('trainingList');
+  list.innerHTML = allTasks.map(t => {
+    const done = checkin.trainingDone[t.id];
+    const isCustom = t.id.startsWith('custom_');
+    return `
+      <div class="training-item ${done ? 'done' : ''}" data-tid="${t.id}">
+        <div class="training-check">${done ? '✓' : ''}</div>
+        <span class="training-icon">${t.icon}</span>
+        <div class="training-info">
+          <div class="training-name">${t.name}</div>
+          <div class="training-detail">${t.detail}</div>
+        </div>
+        ${isCustom ? `<button class="training-delete" data-del="${t.id}">✕</button>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  list.querySelectorAll('.training-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      if (e.target.classList.contains('training-delete')) return;
+      const tid = item.dataset.tid;
+      const c = getCheckin(todayStr());
+      c.trainingDone[tid] = !c.trainingDone[tid];
+      saveData();
+      renderTraining();
+      // 全部完成自动打卡运动习惯
+      const allDone = getAllTraining().every(t => c.trainingDone[t.id]);
+      if (allDone && !c.exercise) {
+        c.exercise = true;
+        saveData();
+        renderCheckin();
+        showToast('训练全部完成！运动习惯已自动打卡 💪');
+      }
+    });
+  });
+
+  list.querySelectorAll('.training-delete').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      deleteTraining(btn.dataset.del);
+    });
+  });
+}
+
+function addTraining(name, detail) {
+  const id = 'custom_' + Date.now();
+  const iconMap = { '跑步': '🏃', '跑': '🏃', '走': '🚶', '跳': '⭐', '蹲': '🦵', '俯卧撑': '💪', '撑': '🏋️', '拉伸': '🧘', '瑜伽': '🧘', '骑': '🚴', '游': '🏊', '平板': '🏋️' };
+  let icon = '🎯';
+  for (const key in iconMap) { if (name.includes(key)) { icon = iconMap[key]; break; } }
+  state.customTraining.push({ id, name, detail: detail || '', icon });
+  saveData();
+  renderTraining();
+  showToast('训练项目已添加');
+}
+
+function deleteTraining(id) {
+  state.customTraining = state.customTraining.filter(t => t.id !== id);
+  Object.keys(state.checkins).forEach(date => {
+    if (state.checkins[date].trainingDone) {
+      delete state.checkins[date].trainingDone[id];
+    }
+  });
+  saveData();
+  renderTraining();
+  showToast('已删除');
 }
 
 /* ==================== 体重趋势 ==================== */
@@ -589,6 +686,17 @@ function init() {
     document.getElementById('exerciseNote').value = '';
   });
 
+  // 添加训练项目
+  document.getElementById('addTrainingForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('trainingName').value.trim();
+    const detail = document.getElementById('trainingDetail').value.trim();
+    if (!name) { showToast('请输入训练项目'); return; }
+    addTraining(name, detail);
+    document.getElementById('trainingName').value = '';
+    document.getElementById('trainingDetail').value = '';
+  });
+
   // 饮食筛选
   document.querySelectorAll('#mealFilterTabs .filter-tab').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -615,5 +723,6 @@ function init() {
 
 window.deleteMeal = deleteMeal;
 window.deleteExercise = deleteExercise;
+window.deleteTraining = deleteTraining;
 
 document.addEventListener('DOMContentLoaded', init);
