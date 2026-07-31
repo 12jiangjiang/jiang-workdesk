@@ -112,6 +112,21 @@
           </div>
         </div>
 
+        <!-- 每日训练计划 -->
+        <div class="checkin-card">
+          <div class="checkin-card-header">
+            <span class="checkin-icon">💪</span>
+            <span class="checkin-title">每日训练</span>
+            <span class="checkin-count" id="trainingCount">0 / 0 完成</span>
+          </div>
+          <div class="training-list" id="trainingList"></div>
+          <form class="training-add-form" id="addTrainingForm">
+            <input type="text" id="trainingName" placeholder="训练项目" maxlength="20" autocomplete="off" class="training-input">
+            <input type="text" id="trainingDetail" placeholder="数量（如3组×15个）" maxlength="20" autocomplete="off" class="training-input">
+            <button type="submit" class="training-add-btn">添加</button>
+          </form>
+        </div>
+
         <!-- 今日进度 -->
         <div class="checkin-summary">
           <div class="progress-circle-wrap">
