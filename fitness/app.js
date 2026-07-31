@@ -12,13 +12,12 @@ const MEAL_TYPES = { breakfast: '🌅 早餐', lunch: '☀️ 午餐', dinner: '
 const EX_TYPES = { '跑步': '🏃', '快走': '🚶', '瑜伽': '🧘', '骑行': '🚴', '力量训练': '💪', '游泳': '🏊', '普拉提': '🤸', '跳绳': '🪢', '其他': '🎯' };
 
 const DEFAULT_TRAINING = [
-  { id: 'dt1', name: '晨跑/快走', detail: '30分钟', icon: '🏃' },
-  { id: 'dt2', name: '呼啦圈', detail: '300个', icon: '🎯' },
-  { id: 'dt3', name: '跑步', detail: '3公里/5公里', icon: '🏃' },
-  { id: 'dt4', name: '仰卧起坐', detail: '3组×20个', icon: '💪' },
-  { id: 'dt5', name: '跳绳', detail: '300下', icon: '🪢' },
-  { id: 'dt6', name: '开合跳', detail: '3组×30个', icon: '⭐' },
-  { id: 'dt7', name: '拉伸放松', detail: '15分钟', icon: '🧘' },
+  { id: 'dt1', name: '呼啦圈', detail: '300个', icon: '🎯' },
+  { id: 'dt2', name: '跑步', detail: '3公里/5公里', icon: '🏃' },
+  { id: 'dt3', name: '仰卧起坐', detail: '3组×20个', icon: '💪' },
+  { id: 'dt4', name: '跳绳', detail: '300下', icon: '🪢' },
+  { id: 'dt5', name: '开合跳', detail: '3组×30个', icon: '⭐' },
+  { id: 'dt6', name: '拉伸放松', detail: '15分钟', icon: '🧘' },
 ];
 
 let state = {
