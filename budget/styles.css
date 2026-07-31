@@ -1,14 +1,14 @@
 :root {
-  --bg: #FFF5F8;
-  --sidebar-bg: #FCE7F0;
-  --primary: #E84A8A;
-  --primary-dark: #D63B7A;
-  --primary-light: #FDE0EC;
-  --text: #4A3340;
-  --text-secondary: #9B7B8A;
+  --bg: #F0F6FF;
+  --sidebar-bg: #E3EEFE;
+  --primary: #4A90D9;
+  --primary-dark: #3A7BC8;
+  --primary-light: #DCEAF8;
+  --text: #2B3A4A;
+  --text-secondary: #7A8E9F;
   --card-bg: #FFFFFF;
-  --border: #F0D0DE;
-  --shadow: 0 2px 12px rgba(232, 74, 138, 0.08);
+  --border: #CFE0F5;
+  --shadow: 0 2px 12px rgba(74, 144, 217, 0.08);
   --radius: 16px;
   --radius-sm: 10px;
   --safe-top: env(safe-area-inset-top, 0px);
@@ -101,7 +101,7 @@ html, body {
 }
 
 .nav-item:hover {
-  background: rgba(232, 74, 138, 0.08);
+  background: rgba(74, 144, 217, 0.08);
 }
 
 .nav-icon {
