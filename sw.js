@@ -1,4 +1,4 @@
-const CACHE_NAME = 'workbench-v1';
+const CACHE_NAME = 'workbench-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -24,6 +24,21 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
+
+  // hot_data.json: 网络优先，确保总是拿到最新数据
+  if (url.pathname.endsWith('hot_data.json')) {
+    e.respondWith(
+      fetch(e.request).then(resp => {
+        const copy = resp.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(e.request, copy));
+        return resp;
+      }).catch(() => caches.match(e.request).then(c => c || new Response('{"sources":{}}', {headers: {'Content-Type': 'application/json'}})))
+    );
+    return;
+  }
+
+  // 其他资源: 缓存优先，离线时用缓存
   e.respondWith(
     caches.match(e.request).then(cached => {
       return cached || fetch(e.request).then(resp => {
