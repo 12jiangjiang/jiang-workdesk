@@ -1,12 +1,12 @@
-const CACHE_NAME = 'fitness-app-v1';
+const CACHE_NAME = 'fitness-app-v2';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
   './app.js',
   './manifest.json',
-  '../icon-192.png',
-  '../icon-512.png'
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', e => {
