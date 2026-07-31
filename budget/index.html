@@ -38,6 +38,10 @@
           <span class="nav-icon" aria-hidden="true">🎯</span>
           <span class="nav-label">预算管理</span>
         </button>
+        <button class="nav-item" data-view="monthly" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">📆</span>
+          <span class="nav-label">月统计</span>
+        </button>
       </nav>
     </aside>
 
@@ -80,6 +84,14 @@
           <div class="note-section">
             <label class="form-label">备注</label>
             <input type="text" id="noteInput" placeholder="买什么了？给谁花的？" maxlength="100" autocomplete="off">
+          </div>
+
+          <div class="date-section">
+            <label class="form-label">日期</label>
+            <div class="date-input-wrap">
+              <input type="date" id="dateInput">
+              <button type="button" class="date-today-btn" id="dateTodayBtn">今天</button>
+            </div>
           </div>
 
           <button class="submit-btn" id="submitBtn">✓ 记下来</button>
@@ -180,6 +192,44 @@
           <input type="number" id="budgetAmountInput" placeholder="预算金额" step="0.01" min="0" inputmode="decimal">
           <button type="submit">设置</button>
         </form>
+      </section>
+
+      <!-- 月统计 -->
+      <section class="view" id="monthlyView">
+        <div class="view-header">
+          <h2>月统计</h2>
+          <p class="subtitle">按月汇总收支，看清花销趋势</p>
+        </div>
+
+        <!-- 近6月概览卡片 -->
+        <div class="summary-cards" id="monthlySummaryCards">
+          <div class="summary-card income">
+            <span class="summary-label">近6月总收入</span>
+            <span class="summary-amount" id="monthlyTotalIncome">¥0</span>
+          </div>
+          <div class="summary-card expense">
+            <span class="summary-label">近6月总支出</span>
+            <span class="summary-amount" id="monthlyTotalExpense">¥0</span>
+          </div>
+          <div class="summary-card balance">
+            <span class="summary-label">近6月总结余</span>
+            <span class="summary-amount" id="monthlyTotalBalance">¥0</span>
+          </div>
+        </div>
+
+        <!-- 月度对比表 -->
+        <div class="view-sub-header">
+          <h3>📊 月度收支对比</h3>
+        </div>
+        <div class="monthly-chart" id="monthlyChart"></div>
+
+        <!-- 月度明细列表 -->
+        <div class="view-sub-header">
+          <h3>📋 月度明细</h3>
+        </div>
+        <div class="monthly-list" id="monthlyList">
+          <div class="empty-state">暂无数据</div>
+        </div>
       </section>
     </main>
   </div>
