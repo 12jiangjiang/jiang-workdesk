@@ -1,4 +1,4 @@
-const CACHE_NAME = 'budget-app-v3';
+const CACHE_NAME = 'budget-app-v4';
 const ASSETS = [
   './',
   './index.html',
@@ -25,12 +25,10 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      return cached || fetch(e.request).then(resp => {
-        const copy = resp.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(e.request, copy));
-        return resp;
-      }).catch(() => cached);
-    })
+    fetch(e.request).then(resp => {
+      const copy = resp.clone();
+      caches.open(CACHE_NAME).then(cache => cache.put(e.request, copy));
+      return resp;
+    }).catch(() => caches.match(e.request))
   );
 });
