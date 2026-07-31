@@ -76,6 +76,97 @@
     toast: document.getElementById('toast')
   };
 
+  // ... (hot data state)
+  let hotData = null;
+  let activeHotTab = 'douyin';
+
+  function loadHotData() {
+    fetch('hot_data.json?v=' + Date.now())
+      .then(r => r.json())
+      .then(data => {
+        hotData = data;
+        renderHotTabs();
+        renderHotList();
+      })
+      .catch(() => {
+        const list = document.getElementById('hotList');
+        if (list) list.innerHTML = '<div class="hot-empty">暂无热点数据，每天8点自动更新</div>';
+        const meta = document.getElementById('hotMeta');
+        if (meta) meta.textContent = '';
+      });
+  }
+
+  function renderHotTabs() {
+    if (!hotData || !hotData.sources) return;
+    const tabs = document.getElementById('hotTabs');
+    if (!tabs) return;
+    tabs.querySelectorAll('.hot-tab').forEach(tab => {
+      const src = tab.dataset.source;
+      const hasData = hotData.sources[src] && hotData.sources[src].length > 0;
+      tab.style.display = hasData ? '' : 'none';
+      tab.addEventListener('click', () => {
+        activeHotTab = src;
+        tabs.querySelectorAll('.hot-tab').forEach(t => t.classList.toggle('active', t === tab));
+        renderHotList();
+      });
+    });
+    // 如果当前 tab 没数据，切到第一个有数据的
+    if (!hotData.sources[activeHotTab] || hotData.sources[activeHotTab].length === 0) {
+      for (const key of Object.keys(hotData.sources)) {
+        if (hotData.sources[key] && hotData.sources[key].length > 0) {
+          activeHotTab = key;
+          break;
+        }
+      }
+      tabs.querySelectorAll('.hot-tab').forEach(t => t.classList.toggle('active', t.dataset.source === activeHotTab));
+    }
+  }
+
+  function renderHotList() {
+    const list = document.getElementById('hotList');
+    const meta = document.getElementById('hotMeta');
+    if (!list || !hotData) return;
+
+    if (meta) {
+      meta.textContent = hotData.update_time ? '更新时间: ' + hotData.update_time : '';
+    }
+
+    const items = (hotData.sources[activeHotTab] || []);
+    if (items.length === 0) {
+      list.innerHTML = '<div class="hot-empty">该平台暂无数据</div>';
+      return;
+    }
+
+    list.innerHTML = '';
+    items.forEach((item, i) => {
+      const a = document.createElement('a');
+      a.className = 'hot-item';
+      a.href = item.url || '#';
+      a.target = '_blank';
+      a.rel = 'noopener';
+
+      const rank = document.createElement('span');
+      rank.className = 'hot-rank';
+      rank.textContent = String(i + 1);
+
+      const title = document.createElement('span');
+      title.className = 'hot-title';
+      title.textContent = item.title;
+
+      a.appendChild(rank);
+      a.appendChild(title);
+
+      if (item.hot) {
+        const hot = document.createElement('span');
+        hot.className = 'hot-value';
+        hot.textContent = item.hot;
+        a.appendChild(hot);
+      }
+
+      list.appendChild(a);
+    });
+  }
+
   function init() {
     els.date.textContent = formatDate();
     bindNav();
@@ -85,6 +176,7 @@
     registerServiceWorker();
     renderTasks();
     restoreNotes();
+    loadHotData();
   }
 
   function bindNav() {
