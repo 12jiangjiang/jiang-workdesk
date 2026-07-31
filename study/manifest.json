@@ -1,0 +1,24 @@
+{
+  "name": "学习追踪",
+  "short_name": "学习追踪",
+  "description": "云南四年级小学生学习进度追踪 - 今日学习、学习统计、试卷记录、错题本",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#F2FCF7",
+  "theme_color": "#00A870",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "../icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
