@@ -3,7 +3,7 @@
 
   const STORAGE_KEY = 'creator-daily-workbench';
   const defaultTasks = [
-    { id: 't1', text: '每日普拉提 1 小时', done: false },
+    { id: 't1', text: '运动 1 小时', done: false },
     { id: 't2', text: '尤克里里练习 1 小时', done: false },
     { id: 't3', text: '英语练习 30 分钟', done: false }
   ];
