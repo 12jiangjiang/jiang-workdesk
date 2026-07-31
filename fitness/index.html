@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="减肥追踪">
+  <meta name="theme-color" content="#FF7A45">
+  <meta name="description" content="减肥追踪 - 今日打卡、体重趋势、饮食记录、运动记录">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="../icon-192.png">
+  <link rel="icon" type="image/png" href="../icon-192.png">
+  <title>减肥追踪</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>减肥</h1>
+        <p>追踪本</p>
+      </div>
+      <nav class="nav" aria-label="主导航">
+        <button class="nav-item active" data-view="checkin" aria-pressed="true">
+          <span class="nav-icon" aria-hidden="true">📋</span>
+          <span class="nav-label">今日打卡</span>
+        </button>
+        <button class="nav-item" data-view="weight" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">📈</span>
+          <span class="nav-label">体重趋势</span>
+        </button>
+        <button class="nav-item" data-view="diet" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">🍽️</span>
+          <span class="nav-label">饮食记录</span>
+        </button>
+        <button class="nav-item" data-view="exercise" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">🏃</span>
+          <span class="nav-label">运动记录</span>
+        </button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="date" id="dateDisplay"></div>
+        <div class="streak-badge" id="streakBadge" style="display:none;">🔥 连续 <span id="streakDays">0</span> 天</div>
+      </header>
+
+      <!-- 今日打卡 -->
+      <section class="view active" id="checkinView">
+        <div class="view-header">
+          <h2>今日打卡</h2>
+          <p class="subtitle">坚持每一天，遇见更好的自己</p>
+        </div>
+
+        <!-- 体重快记 -->
+        <div class="checkin-card">
+          <div class="checkin-card-header">
+            <span class="checkin-icon">⚖️</span>
+            <span class="checkin-title">今日体重</span>
+          </div>
+          <div class="weight-quick-input">
+            <input type="number" id="todayWeightInput" placeholder="输入体重" step="0.1" min="20" max="300" inputmode="decimal">
+            <span class="weight-unit">kg</span>
+            <button id="saveWeightBtn" class="save-btn">记录</button>
+          </div>
+          <div class="weight-display" id="weightDisplay" style="display:none;">
+            <span class="weight-current" id="weightCurrent">--</span>
+            <span class="weight-unit-small">kg</span>
+            <span class="weight-change" id="weightChange"></span>
+          </div>
+        </div>
+
+        <!-- 喝水 -->
+        <div class="checkin-card">
+          <div class="checkin-card-header">
+            <span class="checkin-icon">💧</span>
+            <span class="checkin-title">喝水打卡</span>
+            <span class="checkin-count" id="waterCount">0 / 8 杯</span>
+          </div>
+          <div class="water-cups" id="waterCups"></div>
+          <div class="water-buttons">
+            <button class="water-btn add" id="waterAdd">+1 杯</button>
+            <button class="water-btn reset" id="waterReset">重置</button>
+          </div>
+        </div>
+
+        <!-- 习惯打卡 -->
+        <div class="checkin-card">
+          <div class="checkin-card-header">
+            <span class="checkin-icon">✅</span>
+            <span class="checkin-title">习惯打卡</span>
+          </div>
+          <div class="habit-list" id="habitList">
+            <div class="habit-item" data-habit="exercise">
+              <div class="habit-checkbox">🏃</div>
+              <span class="habit-text">完成运动</span>
+            </div>
+            <div class="habit-item" data-habit="diet">
+              <div class="habit-checkbox">🥗</div>
+              <span class="habit-text">饮食健康</span>
+            </div>
+            <div class="habit-item" data-habit="nosnack">
+              <div class="habit-checkbox">🚫</div>
+              <span class="habit-text">没吃零食</span>
+            </div>
+            <div class="habit-item" data-habit="sleep">
+              <div class="habit-checkbox">😴</div>
+              <span class="habit-text">早睡早起</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 今日进度 -->
+        <div class="checkin-summary">
+          <div class="progress-circle-wrap">
+            <svg class="progress-ring" width="72" height="72">
+              <circle class="progress-ring-bg" cx="36" cy="36" r="30" stroke-width="5" fill="none"/>
+              <circle class="progress-ring-fill" id="checkinProgressRing" cx="36" cy="36" r="30" stroke-width="5" fill="none"/>
+            </svg>
+            <span class="progress-text" id="checkinProgressText">0%</span>
+          </div>
+          <div class="checkin-info">
+            <span class="checkin-label">今日完成 <span id="checkinDone">0</span> / 6 项</span>
+            <span class="checkin-hint" id="checkinHint">开始今天的健康打卡吧！</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 体重趋势 -->
+      <section class="view" id="weightView">
+        <div class="view-header">
+          <h2>体重趋势</h2>
+          <p class="subtitle">看见每一克的进步</p>
+        </div>
+
+        <!-- 目标设置 -->
+        <div class="goal-card">
+          <div class="goal-info-row">
+            <div class="goal-info-item">
+              <span class="goal-label">起始体重</span>
+              <span class="goal-value" id="startWeight">-- kg</span>
+            </div>
+            <div class="goal-info-item">
+              <span class="goal-label">当前体重</span>
+              <span class="goal-value highlight" id="currentWeight">-- kg</span>
+            </div>
+            <div class="goal-info-item">
+              <span class="goal-label">目标体重</span>
+              <span class="goal-value" id="goalWeight">-- kg</span>
+            </div>
+          </div>
+          <div class="goal-progress-bar">
+            <div class="goal-progress-fill" id="goalProgressFill"></div>
+          </div>
+          <div class="goal-progress-text" id="goalProgressText">设置目标，开始追踪</div>
+        </div>
+
+        <!-- 统计卡片 -->
+        <div class="stat-cards">
+          <div class="stat-card">
+            <span class="stat-icon">📉</span>
+            <span class="stat-value" id="totalLoss">--</span>
+            <span class="stat-label">总共减重</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">📅</span>
+            <span class="stat-value" id="weekLoss">--</span>
+            <span class="stat-label">本周变化</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">📅</span>
+            <span class="stat-value" id="monthLoss">--</span>
+            <span class="stat-label">本月变化</span>
+          </div>
+        </div>
+
+        <!-- BMI -->
+        <div class="view-sub-header">
+          <h3>📏 BMI 指数</h3>
+        </div>
+        <div class="bmi-card" id="bmiCard">
+          <div class="bmi-display">
+            <span class="bmi-value" id="bmiValue">--</span>
+            <span class="bmi-label" id="bmiLabel">请设置身高</span>
+          </div>
+          <div class="bmi-input-row">
+            <input type="number" id="heightInput" placeholder="身高 cm" min="100" max="250" inputmode="decimal">
+            <button id="saveHeightBtn">保存</button>
+          </div>
+        </div>
+
+        <!-- 体重曲线 -->
+        <div class="view-sub-header">
+          <h3>📊 近30天体重曲线</h3>
+        </div>
+        <div class="weight-chart-container" id="weightChartContainer">
+          <div class="empty-state">还没有体重数据，去打卡记录吧 📋</div>
+        </div>
+      </section>
+
+      <!-- 饮食记录 -->
+      <section class="view" id="dietView">
+        <div class="view-header">
+          <h2>饮食记录</h2>
+          <p class="subtitle">管住嘴，才能瘦</p>
+        </div>
+
+        <!-- 今日热量概览 -->
+        <div class="calorie-overview">
+          <div class="calorie-circle">
+            <span class="calorie-value" id="todayCalories">0</span>
+            <span class="calorie-unit">kcal</span>
+          </div>
+          <div class="calorie-info">
+            <span class="calorie-label">今日摄入</span>
+            <div class="calorie-bar-wrap">
+              <div class="calorie-bar" id="calorieBar"></div>
+            </div>
+            <span class="calorie-target">建议 <span id="calorieTarget">1800</span> kcal</span>
+          </div>
+        </div>
+
+        <!-- 添加饮食 -->
+        <div class="view-sub-header">
+          <h3>➕ 记一笔饮食</h3>
+        </div>
+        <form class="add-form" id="addMealForm">
+          <div class="form-row">
+            <select id="mealType" class="form-select">
+              <option value="breakfast">🌅 早餐</option>
+              <option value="lunch">☀️ 午餐</option>
+              <option value="dinner">🌙 晚餐</option>
+              <option value="snack">🍵 加餐</option>
+            </select>
+            <input type="number" id="mealCalories" placeholder="热量 kcal" step="1" min="0" inputmode="decimal">
+          </div>
+          <input type="text" id="mealDesc" placeholder="吃了什么？（如：一碗米饭+鸡胸肉）" maxlength="100" autocomplete="off" class="form-input-full">
+          <button type="submit" class="form-submit-btn">✓ 记录</button>
+        </form>
+
+        <!-- 饮食列表 -->
+        <div class="view-sub-header">
+          <h3>📋 饮食明细</h3>
+        </div>
+        <div class="filter-tabs" id="mealFilterTabs">
+          <button class="filter-tab active" data-filter="all">全部</button>
+          <button class="filter-tab" data-filter="breakfast">早餐</button>
+          <button class="filter-tab" data-filter="lunch">午餐</button>
+          <button class="filter-tab" data-filter="dinner">晚餐</button>
+          <button class="filter-tab" data-filter="snack">加餐</button>
+        </div>
+        <div class="record-list" id="mealList">
+          <div class="empty-state">还没有饮食记录 🍽️</div>
+        </div>
+      </section>
+
+      <!-- 运动记录 -->
+      <section class="view" id="exerciseView">
+        <div class="view-header">
+          <h2>运动记录</h2>
+          <p class="subtitle">迈开腿，瘦得快</p>
+        </div>
+
+        <!-- 统计卡片 -->
+        <div class="stat-cards">
+          <div class="stat-card">
+            <span class="stat-icon">🔥</span>
+            <span class="stat-value" id="todayBurned">0</span>
+            <span class="stat-label">今日消耗</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">⏱️</span>
+            <span class="stat-value" id="todayMinutes">0</span>
+            <span class="stat-label">今日时长(分)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">📅</span>
+            <span class="stat-value" id="weekCount">0</span>
+            <span class="stat-label">本周运动次</span>
+          </div>
+        </div>
+
+        <!-- 添加运动 -->
+        <div class="view-sub-header">
+          <h3>➕ 记一笔运动</h3>
+        </div>
+        <form class="add-form" id="addExerciseForm">
+          <div class="form-row">
+            <select id="exerciseType" class="form-select">
+              <option value="跑步">🏃 跑步</option>
+              <option value="快走">🚶 快走</option>
+              <option value="瑜伽">🧘 瑜伽</option>
+              <option value="骑行">🚴 骑行</option>
+              <option value="力量训练">💪 力量训练</option>
+              <option value="游泳">🏊 游泳</option>
+              <option value="普拉提">🤸 普拉提</option>
+              <option value="跳绳">🪢 跳绳</option>
+              <option value="其他">🎯 其他</option>
+            </select>
+            <input type="number" id="exerciseDuration" placeholder="时长(分钟)" step="1" min="1" inputmode="decimal">
+            <input type="number" id="exerciseCalories" placeholder="消耗 kcal" step="1" min="0" inputmode="decimal">
+          </div>
+          <input type="text" id="exerciseNote" placeholder="备注（可选）" maxlength="100" autocomplete="off" class="form-input-full">
+          <button type="submit" class="form-submit-btn">✓ 记录</button>
+        </form>
+
+        <!-- 运动列表 -->
+        <div class="view-sub-header">
+          <h3>📋 运动明细</h3>
+        </div>
+        <div class="record-list" id="exerciseList">
+          <div class="empty-state">还没有运动记录 🏃</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="modal" id="installModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <h3>保存到手机桌面</h3>
+      <ol>
+        <li><strong>安卓：</strong>用 Chrome 打开 → 右上角三个点 → 添加到主屏幕</li>
+        <li><strong>苹果：</strong>用 Safari 打开 → 底部分享按钮 → 添加到主屏幕</li>
+      </ol>
+      <p>之后就像 App 一样从桌面直接打开，离线也能用。</p>
+      <button class="modal-close" id="closeInstallModal">知道了</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
