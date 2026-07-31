@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="家庭记账本">
+  <meta name="theme-color" content="#E84A8A">
+  <meta name="description" content="家庭记账本 - 记一笔、月度概览、流水明细、预算管理">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="../icon-192.png">
+  <link rel="icon" type="image/png" href="../icon-192.png">
+  <title>家庭记账本</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>家庭</h1>
+        <p>记账本</p>
+      </div>
+      <nav class="nav" aria-label="主导航">
+        <button class="nav-item active" data-view="add" aria-pressed="true">
+          <span class="nav-icon" aria-hidden="true">💰</span>
+          <span class="nav-label">记一笔</span>
+        </button>
+        <button class="nav-item" data-view="overview" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">📊</span>
+          <span class="nav-label">本月概览</span>
+        </button>
+        <button class="nav-item" data-view="detail" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">📋</span>
+          <span class="nav-label">流水明细</span>
+        </button>
+        <button class="nav-item" data-view="budget" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">🎯</span>
+          <span class="nav-label">预算管理</span>
+        </button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="date" id="dateDisplay"></div>
+        <div class="month-nav">
+          <button class="month-btn" id="prevMonth" aria-label="上个月">‹</button>
+          <span class="month-display" id="monthDisplay"></span>
+          <button class="month-btn" id="nextMonth" aria-label="下个月">›</button>
+        </div>
+      </header>
+
+      <!-- 记一笔 -->
+      <section class="view active" id="addView">
+        <div class="view-header">
+          <h2>记一笔</h2>
+          <p class="subtitle">快速记录每一笔收支</p>
+        </div>
+
+        <div class="form-card">
+          <div class="type-toggle">
+            <button class="type-btn active" data-type="expense">💸 支出</button>
+            <button class="type-btn" data-type="income">💰 收入</button>
+          </div>
+
+          <div class="category-section">
+            <label class="form-label">分类</label>
+            <div class="category-grid" id="categoryGrid"></div>
+          </div>
+
+          <div class="amount-section">
+            <label class="form-label">金额</label>
+            <div class="amount-input-wrap">
+              <span class="currency">¥</span>
+              <input type="number" id="amountInput" placeholder="0.00" step="0.01" min="0" inputmode="decimal">
+            </div>
+          </div>
+
+          <div class="note-section">
+            <label class="form-label">备注</label>
+            <input type="text" id="noteInput" placeholder="买什么了？给谁花的？" maxlength="100" autocomplete="off">
+          </div>
+
+          <button class="submit-btn" id="submitBtn">✓ 记下来</button>
+        </div>
+      </section>
+
+      <!-- 本月概览 -->
+      <section class="view" id="overviewView">
+        <div class="view-header">
+          <h2>本月概览</h2>
+          <p class="subtitle">收入支出一目了然</p>
+        </div>
+
+        <div class="summary-cards">
+          <div class="summary-card income">
+            <span class="summary-label">收入</span>
+            <span class="summary-amount" id="totalIncome">¥0</span>
+          </div>
+          <div class="summary-card expense">
+            <span class="summary-label">支出</span>
+            <span class="summary-amount" id="totalExpense">¥0</span>
+          </div>
+          <div class="summary-card balance">
+            <span class="summary-label">结余</span>
+            <span class="summary-amount" id="totalBalance">¥0</span>
+          </div>
+        </div>
+
+        <div class="view-sub-header">
+          <h3>📈 分类占比</h3>
+        </div>
+        <div class="category-stats" id="categoryStats">
+          <div class="empty-state">暂无数据，先记一笔吧 ✨</div>
+        </div>
+
+        <div class="view-sub-header">
+          <h3>📅 每日趋势</h3>
+        </div>
+        <div class="daily-chart" id="dailyChart"></div>
+      </section>
+
+      <!-- 流水明细 -->
+      <section class="view" id="detailView">
+        <div class="view-header">
+          <h2>流水明细</h2>
+          <p class="subtitle">所有收支记录</p>
+        </div>
+
+        <div class="filter-tabs" id="filterTabs">
+          <button class="filter-tab active" data-filter="all">全部</button>
+          <button class="filter-tab" data-filter="expense">支出</button>
+          <button class="filter-tab" data-filter="income">收入</button>
+        </div>
+
+        <div class="transaction-list" id="transactionList">
+          <div class="empty-state">暂无记录</div>
+        </div>
+      </section>
+
+      <!-- 预算管理 -->
+      <section class="view" id="budgetView">
+        <div class="view-header">
+          <h2>预算管理</h2>
+          <p class="subtitle">设定每月支出上限，控制消费</p>
+        </div>
+
+        <div class="budget-overview" id="budgetOverview">
+          <div class="budget-total-card">
+            <div class="budget-total-info">
+              <span class="budget-label">本月总预算</span>
+              <span class="budget-amount" id="budgetTotal">¥0</span>
+            </div>
+            <div class="budget-total-info">
+              <span class="budget-label">已花</span>
+              <span class="budget-amount spent" id="budgetSpent">¥0</span>
+            </div>
+            <div class="budget-total-info">
+              <span class="budget-label">剩余</span>
+              <span class="budget-amount" id="budgetRemain">¥0</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="budgetProgress"></div>
+          </div>
+          <div class="budget-hint" id="budgetHint">设置分类预算来控制消费</div>
+        </div>
+
+        <div class="view-sub-header">
+          <h3>✏️ 分类预算</h3>
+        </div>
+        <div class="budget-list" id="budgetList"></div>
+
+        <div class="view-sub-header">
+          <h3>➕ 新增预算</h3>
+        </div>
+        <form class="add-budget-form" id="addBudgetForm">
+          <select id="budgetCategorySelect" class="budget-select"></select>
+          <input type="number" id="budgetAmountInput" placeholder="预算金额" step="0.01" min="0" inputmode="decimal">
+          <button type="submit">设置</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="modal" id="installModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <h3>保存到苹果手机桌面</h3>
+      <ol>
+        <li>点击 Safari 底部或顶部的<strong>分享按钮</strong>（⬆️ 方框带箭头）</li>
+        <li>在菜单里找到<strong>"添加到主屏幕"</strong></li>
+        <li>点击右上角<strong>"添加"</strong></li>
+      </ol>
+      <p>之后就可以像 App 一样从桌面直接打开，离线也能用。</p>
+      <button class="modal-close" id="closeInstallModal">知道了</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
