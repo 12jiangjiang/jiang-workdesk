@@ -1,237 +1,237 @@
 {
-  "date": "2026-11-24",
-  "update_time": "2026-11-24 07:23:06",
+  "date": "2026-11-25",
+  "update_time": "2026-11-25 05:54:12",
   "sources": {
     "bilibili": [
       {
-        "title": "【火影十一年 神临时刻】漩涡鸣人[阳之力]即将登场！",
-        "hot": "1217894",
-        "url": "https://www.bilibili.com/video/BV1qYyRz5EdM"
+        "title": "《绝区零》挽昼角色展示 | 日陨之前",
+        "hot": "420898",
+        "url": "https://www.bilibili.com/video/BV1esyZz7ExF"
       },
       {
-        "title": "“别人过得好 你就要扣自己的分吗”",
-        "hot": "1121213",
-        "url": "https://www.bilibili.com/video/BV1oSyJz1EiC"
+        "title": "《狩》首曝PV&实机演示丨动作要秀，有狩就行！",
+        "hot": "1593988",
+        "url": "https://www.bilibili.com/video/BV1931AzhE1q"
+      },
+      {
+        "title": "《异环》Exe角色PV丨追杀计数",
+        "hot": "548243",
+        "url": "https://www.bilibili.com/video/BV1wYsq6kEeg"
+      },
+      {
+        "title": "决赛练英雄？选皮肤原则大公开！BLG冠军中野亲自讲述夺冠故事【视频播客 | 元来如此 EP.10】",
+        "hot": "275064",
+        "url": "https://www.bilibili.com/video/BV1qByfz4EjN"
+      },
+      {
+        "title": "极客湾手机影像大横评：哪家手机拍照强？",
+        "hot": "160601",
+        "url": "https://www.bilibili.com/video/BV1c5yzzGEL9"
+      },
+      {
+        "title": "同样是水果腌肉 为啥有人是“国宴” 有人是大型翻车现场？【主播说三农】",
+        "hot": "1787541",
+        "url": "https://www.bilibili.com/video/BV1cpyXz5ETC"
+      },
+      {
+        "title": "【世界无用技能】据说这是德国最烧脑的综艺游戏😅~太抽象了🦆选鸭子选小球比谁滑远~超级策略游戏！",
+        "hot": "1042668",
+        "url": "https://www.bilibili.com/video/BV1rg1FzvEiP"
+      },
+      {
+        "title": "我用AI还原了传说中的HIM，100名玩家能打赢它吗？",
+        "hot": "686550",
+        "url": "https://www.bilibili.com/video/BV1Hu1FzKEDR"
+      },
+      {
+        "title": "推理小说作者想剧透大结局，惨遭灭口？原著缺终章，续写意外揭开真相？《大理石厅谋杀案》下",
+        "hot": "540671",
+        "url": "https://www.bilibili.com/video/BV1FeyfzcELe"
+      },
+      {
+        "title": "🚢\"泰坦鲁克号\"🛳️",
+        "hot": "403501",
+        "url": "https://www.bilibili.com/video/BV1R1yfzQEih"
+      },
+      {
+        "title": "荔枝的遭遇",
+        "hot": "1381580",
+        "url": "https://www.bilibili.com/video/BV1BuyHzQEk9"
+      },
+      {
+        "title": "153分钟超长大合集！【末日来临，我从吃丧尸开始成神！】第1季+第2季完整版【AI全民制作人】",
+        "hot": "436664",
+        "url": "https://www.bilibili.com/video/BV16nyXzyEuQ"
       },
       {
         "title": "《蓝色星原：旅谣》涂山小玉PV | 一笺桃花",
-        "hot": "604715",
+        "hot": "2996390",
         "url": "https://www.bilibili.com/video/BV1j3yHznECD"
       },
       {
-        "title": "【纪录片】蓝色星球 第三季 04 极地海洋",
-        "hot": "366550",
-        "url": "https://www.bilibili.com/video/BV1qTst6BEN9"
+        "title": "刘晓艳：“你能考过就是「烂奇迹」”",
+        "hot": "778439",
+        "url": "https://www.bilibili.com/video/BV1AZyEzpEAT"
       },
       {
-        "title": "《明日方舟：终末地》干员叙事 [小刻：很新的旅程]",
-        "hot": "627565",
-        "url": "https://www.bilibili.com/video/BV1aoyQzwEx9"
-      },
-      {
-        "title": "你从未见过的硬核开箱视频！",
-        "hot": "735651",
-        "url": "https://www.bilibili.com/video/BV1QAypzyE7B"
-      },
-      {
-        "title": "🐊“Bin哥，我一定会找到冠军皮肤的时间线的！”🐊",
-        "hot": "485069",
-        "url": "https://www.bilibili.com/video/BV15iyXzvE4y"
-      },
-      {
-        "title": "我们成为英雄，哪怕只有一天",
-        "hot": "1093709",
-        "url": "https://www.bilibili.com/video/BV1ioyGzZET8"
-      },
-      {
-        "title": "我想回家吃饭（两小时大电影）",
-        "hot": "1737738",
-        "url": "https://www.bilibili.com/video/BV1LoyGzZEX8"
-      },
-      {
-        "title": "【记忆碎片】要长脑子了",
-        "hot": "313000",
-        "url": "https://www.bilibili.com/video/BV1JZsi6iEiE"
-      },
-      {
-        "title": "华强等了宋老虎30年",
-        "hot": "705575",
-        "url": "https://www.bilibili.com/video/BV1SFyDznEAZ"
-      },
-      {
-        "title": "人类统一不爽行为",
-        "hot": "779248",
-        "url": "https://www.bilibili.com/video/BV1c2yHz4EK4"
-      },
-      {
-        "title": "【小跳蛙】|“【跳蛙の小曲】”",
-        "hot": "2987997",
-        "url": "https://www.bilibili.com/video/BV1rryhzDEy8"
-      },
-      {
-        "title": "⚡【神金斗罗】史上最神人斗罗同人1-10集大合集⚡",
-        "hot": "714754",
-        "url": "https://www.bilibili.com/video/BV1GGy7zPEzZ"
-      },
-      {
-        "title": "对质",
-        "hot": "1221029",
-        "url": "https://www.bilibili.com/video/BV1szyHzwEg9"
+        "title": "游戏自由度太高也不是什么好事",
+        "hot": "3917985",
+        "url": "https://www.bilibili.com/video/BV1NzyHzwEKB"
       }
     ],
     "weibo": [
       {
-        "title": "央视披露四川雅安无名女尸悬案",
-        "hot": "1112696",
-        "url": "https://s.weibo.com/weibo?q=%23央视披露四川雅安无名女尸悬案%23"
+        "title": "可口可乐不再标生产日期",
+        "hot": "1211048",
+        "url": "https://s.weibo.com/weibo?q=%23可口可乐不再标生产日期%23"
       },
       {
-        "title": "BLG奖金收入断档第一",
-        "hot": "786077",
-        "url": "https://s.weibo.com/weibo?q=%23BLG奖金收入断档第一%23"
+        "title": "弟弟为独吞133万遗产翻脸不认姐姐",
+        "hot": "1193612",
+        "url": "https://s.weibo.com/weibo?q=%23弟弟为独吞133万遗产翻脸不认姐姐%23"
       },
       {
-        "title": "中国经济电力十足",
-        "hot": "622788",
-        "url": "https://s.weibo.com/weibo?q=%23中国经济电力十足%23"
+        "title": "亚太合作鹏程万里",
+        "hot": "938384",
+        "url": "https://s.weibo.com/weibo?q=%23亚太合作鹏程万里%23"
       },
       {
-        "title": "上京东买鞠婧祎同款荣耀700系列",
-        "hot": "591116",
-        "url": "https://s.weibo.com/weibo?q=%23上京东买鞠婧祎同款荣耀700系列%23"
+        "title": "捷途环游者EV全球上市8.99万元起",
+        "hot": "914174",
+        "url": "https://s.weibo.com/weibo?q=%23捷途环游者EV全球上市8.99万元起%23"
       },
       {
-        "title": "49岁李维嘉家里干净得没有一根头发",
-        "hot": "529634",
-        "url": "https://s.weibo.com/weibo?q=%2349岁李维嘉家里干净得没有一根头发%23"
+        "title": "巴基斯坦人齐唱国歌见证神舟发射",
+        "hot": "910556",
+        "url": "https://s.weibo.com/weibo?q=%23巴基斯坦人齐唱国歌见证神舟发射%23"
       },
       {
-        "title": "杨毅谈杨瀚森空接得分",
-        "hot": "361916",
-        "url": "https://s.weibo.com/weibo?q=%23杨毅谈杨瀚森空接得分%23"
+        "title": "巴基斯坦航天员舱内笔下不停",
+        "hot": "671875",
+        "url": "https://s.weibo.com/weibo?q=%23巴基斯坦航天员舱内笔下不停%23"
       },
       {
-        "title": "张萌昨天才知道马天宇给她浪姐加油",
-        "hot": "351804",
-        "url": "https://s.weibo.com/weibo?q=%23张萌昨天才知道马天宇给她浪姐加油%23"
+        "title": "朱珠演了个斑秃富太",
+        "hot": "586931",
+        "url": "https://s.weibo.com/weibo?q=%23朱珠演了个斑秃富太%23"
       },
       {
-        "title": "1991年张大爷烂梗来自三无试卷",
-        "hot": "330979",
-        "url": "https://s.weibo.com/weibo?q=%231991年张大爷烂梗来自三无试卷%23"
+        "title": "朱芳雨新浪扫楼",
+        "hot": "560416",
+        "url": "https://s.weibo.com/weibo?q=%23朱芳雨新浪扫楼%23"
       },
       {
-        "title": "内娱全女拍烂了都不如一部AI",
-        "hot": "319765",
-        "url": "https://s.weibo.com/weibo?q=%23内娱全女拍烂了都不如一部AI%23"
+        "title": "还有什么是红果短剧不敢编的",
+        "hot": "488726",
+        "url": "https://s.weibo.com/weibo?q=%23还有什么是红果短剧不敢编的%23"
       },
       {
-        "title": "深圳感谢市民全妆出街",
-        "hot": "269812",
-        "url": "https://s.weibo.com/weibo?q=%23深圳感谢市民全妆出街%23"
+        "title": "马斯克说上海跳舞视频不是AI",
+        "hot": "419150",
+        "url": "https://s.weibo.com/weibo?q=%23马斯克说上海跳舞视频不是AI%23"
       },
       {
-        "title": "万斯介入黄仁勋复职",
-        "hot": "269740",
-        "url": "https://s.weibo.com/weibo?q=%23万斯介入黄仁勋复职%23"
+        "title": "巴基斯坦航天员手指国旗向镜头敬礼",
+        "hot": "404806",
+        "url": "https://s.weibo.com/weibo?q=%23巴基斯坦航天员手指国旗向镜头敬礼%23"
       },
       {
-        "title": "A股高开低走",
-        "hot": "269090",
-        "url": "https://s.weibo.com/weibo?q=%23A股高开低走%23"
+        "title": "神24与空间站完成对接",
+        "hot": "385495",
+        "url": "https://s.weibo.com/weibo?q=%23神24与空间站完成对接%23"
       },
       {
-        "title": "贾静雯 修杰楷",
-        "hot": "268358",
-        "url": "https://s.weibo.com/weibo?q=%23贾静雯 修杰楷%23"
+        "title": "曝文吉儿婚礼推迟了",
+        "hot": "385437",
+        "url": "https://s.weibo.com/weibo?q=%23曝文吉儿婚礼推迟了%23"
       },
       {
-        "title": "林智妍李到晛分手",
-        "hot": "267869",
-        "url": "https://s.weibo.com/weibo?q=%23林智妍李到晛分手%23"
+        "title": "伪爆剧",
+        "hot": "384914",
+        "url": "https://s.weibo.com/weibo?q=%23伪爆剧%23"
       },
       {
-        "title": "白小纯青稚不能关打赏",
-        "hot": "267196",
-        "url": "https://s.weibo.com/weibo?q=%23白小纯青稚不能关打赏%23"
+        "title": "黄奕开月子会所三年盈利5万",
+        "hot": "384900",
+        "url": "https://s.weibo.com/weibo?q=%23黄奕开月子会所三年盈利5万%23"
       }
     ],
     "zhihu": [],
     "douyin": [
       {
-        "title": "英伟达恢复黄仁勋CEO职务",
-        "hot": "12177610",
-        "url": "https://www.douyin.com/search/%E8%8B%B1%E4%BC%9F%E8%BE%BE%E6%81%A2%E5%A4%8D%E9%BB%84%E4%BB%81%E5%8B%8BCEO%E8%81%8C%E5%8A%A1?type=general"
+        "title": "上海市委书记陈吉宁被查",
+        "hot": "11111035",
+        "url": "https://www.douyin.com/search/%E4%B8%8A%E6%B5%B7%E5%B8%82%E5%A7%94%E4%B9%A6%E8%AE%B0%E9%99%88%E5%90%89%E5%AE%81%E8%A2%AB%E6%9F%A5?type=general"
       },
       {
-        "title": "严肃进入舒服过冬模式",
-        "hot": "11114269",
-        "url": "https://www.douyin.com/search/%E4%B8%A5%E8%82%83%E8%BF%9B%E5%85%A5%E8%88%92%E6%9C%8D%E8%BF%87%E5%86%AC%E6%A8%A1%E5%BC%8F?type=general"
+        "title": "草莓桶蛋糕一吃一个不吱声",
+        "hot": "11031412",
+        "url": "https://www.douyin.com/search/%E8%8D%89%E8%8E%93%E6%A1%B6%E8%9B%8B%E7%B3%95%E4%B8%80%E5%90%83%E4%B8%80%E4%B8%AA%E4%B8%8D%E5%90%B1%E5%A3%B0?type=general"
       },
       {
-        "title": "雪假撬动冰雪经济点燃消费引擎",
-        "hot": "10763961",
-        "url": "https://www.douyin.com/search/%E9%9B%AA%E5%81%87%E6%92%AC%E5%8A%A8%E5%86%B0%E9%9B%AA%E7%BB%8F%E6%B5%8E%E7%82%B9%E7%87%83%E6%B6%88%E8%B4%B9%E5%BC%95%E6%93%8E?type=general"
+        "title": "数字经济正成为用电增长新引擎",
+        "hot": "10953162",
+        "url": "https://www.douyin.com/search/%E6%95%B0%E5%AD%97%E7%BB%8F%E6%B5%8E%E6%AD%A3%E6%88%90%E4%B8%BA%E7%94%A8%E7%94%B5%E5%A2%9E%E9%95%BF%E6%96%B0%E5%BC%95%E6%93%8E?type=general"
       },
       {
-        "title": "英伟达盘前大涨30%",
-        "hot": "10707050",
-        "url": "https://www.douyin.com/search/%E8%8B%B1%E4%BC%9F%E8%BE%BE%E7%9B%98%E5%89%8D%E5%A4%A7%E6%B6%A830%25?type=general"
+        "title": "神二十四乘组名单公布",
+        "hot": "10946219",
+        "url": "https://www.douyin.com/search/%E7%A5%9E%E4%BA%8C%E5%8D%81%E5%9B%9B%E4%B9%98%E7%BB%84%E5%90%8D%E5%8D%95%E5%85%AC%E5%B8%83?type=general"
       },
       {
-        "title": "万吨大驱将首次面向公众开放",
-        "hot": "9248108",
-        "url": "https://www.douyin.com/search/%E4%B8%87%E5%90%A8%E5%A4%A7%E9%A9%B1%E5%B0%86%E9%A6%96%E6%AC%A1%E9%9D%A2%E5%90%91%E5%85%AC%E4%BC%97%E5%BC%80%E6%94%BE?type=general"
+        "title": "田秉毅出任国羽主教练",
+        "hot": "10324792",
+        "url": "https://www.douyin.com/search/%E7%94%B0%E7%A7%89%E6%AF%85%E5%87%BA%E4%BB%BB%E5%9B%BD%E7%BE%BD%E4%B8%BB%E6%95%99%E7%BB%83?type=general"
       },
       {
-        "title": "长江商学院原副院长廖建文离世",
-        "hot": "9189316",
-        "url": "https://www.douyin.com/search/%E9%95%BF%E6%B1%9F%E5%95%86%E5%AD%A6%E9%99%A2%E5%8E%9F%E5%89%AF%E9%99%A2%E9%95%BF%E5%BB%96%E5%BB%BA%E6%96%87%E7%A6%BB%E4%B8%96?type=general"
+        "title": "欧冠曼城vs那不勒斯",
+        "hot": "10287688",
+        "url": "https://www.douyin.com/search/%E6%AC%A7%E5%86%A0%E6%9B%BC%E5%9F%8Evs%E9%82%A3%E4%B8%8D%E5%8B%92%E6%96%AF?type=general"
       },
       {
-        "title": "“一老一小”服务实施方案公布",
-        "hot": "8218969",
-        "url": "https://www.douyin.com/search/%E2%80%9C%E4%B8%80%E8%80%81%E4%B8%80%E5%B0%8F%E2%80%9D%E6%9C%8D%E5%8A%A1%E5%AE%9E%E6%96%BD%E6%96%B9%E6%A1%88%E5%85%AC%E5%B8%83?type=general"
+        "title": "普通人秋冬有效穿搭",
+        "hot": "9204107",
+        "url": "https://www.douyin.com/search/%E6%99%AE%E9%80%9A%E4%BA%BA%E7%A7%8B%E5%86%AC%E6%9C%89%E6%95%88%E7%A9%BF%E6%90%AD?type=general"
       },
       {
-        "title": "2027国考今起可打印准考证",
-        "hot": "7939544",
-        "url": "https://www.douyin.com/search/2027%E5%9B%BD%E8%80%83%E4%BB%8A%E8%B5%B7%E5%8F%AF%E6%89%93%E5%8D%B0%E5%87%86%E8%80%83%E8%AF%81?type=general"
+        "title": "抖音正式进入光影氛围时代",
+        "hot": "9111346",
+        "url": "https://www.douyin.com/search/%E6%8A%96%E9%9F%B3%E6%AD%A3%E5%BC%8F%E8%BF%9B%E5%85%A5%E5%85%89%E5%BD%B1%E6%B0%9B%E5%9B%B4%E6%97%B6%E4%BB%A3?type=general"
       },
       {
-        "title": "18只主动ETF今日上市",
-        "hot": "7854157",
-        "url": "https://www.douyin.com/search/18%E5%8F%AA%E4%B8%BB%E5%8A%A8ETF%E4%BB%8A%E6%97%A5%E4%B8%8A%E5%B8%82?type=general"
+        "title": "羽绒服你喜欢浅色还是黑色",
+        "hot": "9107466",
+        "url": "https://www.douyin.com/search/%E7%BE%BD%E7%BB%92%E6%9C%8D%E4%BD%A0%E5%96%9C%E6%AC%A2%E6%B5%85%E8%89%B2%E8%BF%98%E6%98%AF%E9%BB%91%E8%89%B2?type=general"
       },
       {
-        "title": "荥阳花80元吃八碗太顶了",
-        "hot": "7812418",
-        "url": "https://www.douyin.com/search/%E8%8D%A5%E9%98%B3%E8%8A%B180%E5%85%83%E5%90%83%E5%85%AB%E7%A2%97%E5%A4%AA%E9%A1%B6%E4%BA%86?type=general"
+        "title": "这个日常妆值得焊在脸上",
+        "hot": "9103220",
+        "url": "https://www.douyin.com/search/%E8%BF%99%E4%B8%AA%E6%97%A5%E5%B8%B8%E5%A6%86%E5%80%BC%E5%BE%97%E7%84%8A%E5%9C%A8%E8%84%B8%E4%B8%8A?type=general"
       },
       {
-        "title": "掘金加时胜公牛",
-        "hot": "7789911",
-        "url": "https://www.douyin.com/search/%E6%8E%98%E9%87%91%E5%8A%A0%E6%97%B6%E8%83%9C%E5%85%AC%E7%89%9B?type=general"
+        "title": "啊 是丹东大草莓来了",
+        "hot": "9077545",
+        "url": "https://www.douyin.com/search/%E5%95%8A%20%E6%98%AF%E4%B8%B9%E4%B8%9C%E5%A4%A7%E8%8D%89%E8%8E%93%E6%9D%A5%E4%BA%86?type=general"
       },
       {
-        "title": "各位 后会有期了",
-        "hot": "7780810",
-        "url": "https://www.douyin.com/search/%E5%90%84%E4%BD%8D%20%E5%90%8E%E4%BC%9A%E6%9C%89%E6%9C%9F%E4%BA%86?type=general"
+        "title": "优秀辟谣作品高校巡展举办",
+        "hot": "8885901",
+        "url": "https://www.douyin.com/search/%E4%BC%98%E7%A7%80%E8%BE%9F%E8%B0%A3%E4%BD%9C%E5%93%81%E9%AB%98%E6%A0%A1%E5%B7%A1%E5%B1%95%E4%B8%BE%E5%8A%9E?type=general"
       },
       {
-        "title": "官方辟谣大模型经过医考测试",
-        "hot": "7756187",
-        "url": "https://www.douyin.com/search/%E5%AE%98%E6%96%B9%E8%BE%9F%E8%B0%A3%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%BB%8F%E8%BF%87%E5%8C%BB%E8%80%83%E6%B5%8B%E8%AF%95?type=general"
+        "title": "这一年抖音里的我是怎么样的人",
+        "hot": "8367032",
+        "url": "https://www.douyin.com/search/%E8%BF%99%E4%B8%80%E5%B9%B4%E6%8A%96%E9%9F%B3%E9%87%8C%E7%9A%84%E6%88%91%E6%98%AF%E6%80%8E%E4%B9%88%E6%A0%B7%E7%9A%84%E4%BA%BA?type=general"
       },
       {
-        "title": "黄仁勋：很荣幸回到英伟达",
-        "hot": "7738009",
-        "url": "https://www.douyin.com/search/%E9%BB%84%E4%BB%81%E5%8B%8B%EF%BC%9A%E5%BE%88%E8%8D%A3%E5%B9%B8%E5%9B%9E%E5%88%B0%E8%8B%B1%E4%BC%9F%E8%BE%BE?type=general"
+        "title": "此刻舞台上的我光芒万丈",
+        "hot": "8284995",
+        "url": "https://www.douyin.com/search/%E6%AD%A4%E5%88%BB%E8%88%9E%E5%8F%B0%E4%B8%8A%E7%9A%84%E6%88%91%E5%85%89%E8%8A%92%E4%B8%87%E4%B8%88?type=general"
       },
       {
-        "title": "特朗普祝贺黄仁勋复职",
-        "hot": "7737517",
-        "url": "https://www.douyin.com/search/%E7%89%B9%E6%9C%97%E6%99%AE%E7%A5%9D%E8%B4%BA%E9%BB%84%E4%BB%81%E5%8B%8B%E5%A4%8D%E8%81%8C?type=general"
+        "title": "来一份DJ炒饭",
+        "hot": "7991029",
+        "url": "https://www.douyin.com/search/%E6%9D%A5%E4%B8%80%E4%BB%BDDJ%E7%82%92%E9%A5%AD?type=general"
       }
     ],
     "xiaohongshu": [
